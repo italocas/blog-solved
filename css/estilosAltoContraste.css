@@ -1,0 +1,45 @@
+.high-contrast {
+    background-color: black;
+    color: yellow;
+}
+
+.high-contrast a {
+    color: yellow;
+}
+
+.high-contrast .navigation-bar {
+    background-color: black;
+}
+
+.high-contrast .nav-links {
+    background-color: black;
+}
+
+.high-contrast .pagination-area a {
+    color: yellow;
+    background-color: black;
+}
+
+.high-contrast .pagination-area a.previous-page:not(.disabled),
+.high-contrast .pagination-area a.next-page:not(.disabled) {
+    color: yellow;
+}
+
+.high-contrast .footer-links a {
+    color: black;
+}
+
+.high-contrast .article-content {
+    background-color: black;
+}
+
+.high-contrast .article-topic,
+.high-contrast .article-summary,
+.high-contrast .article-author,
+.high-contrast .article-date {
+    color: white;
+}
+
+.high-contrast .article-title {
+    color: yellow;
+}
