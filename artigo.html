@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="SQUAD 27" />
+    <title>BB PARA DEVS- protótipo1.0</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/estilos.css" />
+    <link rel="stylesheet" type="text/css" href="./css/artigo.css" />
+    <link rel="stylesheet" type="text/css" href="./css/estilosAltoContraste.css" />
+</head>
+
+<body class="container">
+    <header>
+        <div class="banner-area">
+            <img class="img-banner" src="./images/logo_banner.png" alt="Banner">
+        </div>
+
+        <nav>
+            <div class="accessibility-area">
+                <div class="info-current-page">
+                    Home - Blog projeto
+                </div>
+                <div class="accessibility-actions">
+                    <a href="" id="elAltoContraste" class="accessibility-action">Alto contraste</a>
+                    <a href="" id="elIncreaseFont" class="accessibility-action">A+</a>
+                    <a href="" id="elDecreaseFont" class="accessibility-action">A-</a>
+                </div>
+            </div>
+            <div class="navigation-bar">
+                <div class="logo-area">
+                    <img class="img-logo" src="./images/logo-bb.jpg" alt="Logo">
+                </div>
+                <div class="nav-links">
+                    <a href="./index.html">Home</a>
+                    <a href="./sobre.html">Sobre</a>
+                    <a href="./contato.html">Contato</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="main-area">
+        <div class="article-title" id="article-title">Título da notícia será exibido aqui</div>
+        <div class="article-summary" id="article-summary">Resumo da notícia será exibido aqui</div>
+        <div class="article-image">
+            <img id="article-image" src="./images/imagem.jpg" alt="Imagem da notícia">
+        </div>
+
+        <div class="article-audio">
+            <div class="audio-container">
+                <div class="play-button" id="play-button">
+                    <!-- O botão de play será um círculo sem texto -->
+                </div>
+                <div class="audio-info">
+                    <div class="audio-timer" id="audio-timer">00:00</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="article-author" id="article-author"></div>
+        <div class="article-date" id="article-date"></div>
+        <div class="article-content" id="article-content"></div>
+    </main>
+
+    <footer class="footer-area">
+        <div class="footer-links">
+            <a href="#">Ajuda e Suporte</a>
+            <a href="#">Perguntas frequentes</a>
+        </div>
+    </footer>
+
+    <script src="./js/init.js"></script>
+    <script>
+        const article = JSON.parse(localStorage.getItem('selectedArticle'));
+
+        if (article) {
+            document.getElementById('article-title').innerText = article.title;
+            document.getElementById('article-summary').innerText = article.description;
+            document.getElementById('article-image').src = article.urlToImage;
+            document.getElementById('article-image').alt = article.title;
+            document.getElementById('article-content').innerText = article.content || 'Conteúdo não disponível.';
+            document.getElementById('article-author').innerText = article.author || 'Autor desconhecido';
+            document.getElementById('article-date').innerText = new Date(article.publishedAt).toLocaleDateString();
+        } else {
+            console.error('Nenhum artigo foi encontrado no localStorage.');
+        }
+
+        const playButton = document.getElementById('play-button');
+        const audioTimer = document.getElementById('audio-timer');
+        let isPlaying = false;
+        let utterance;
+
+        playButton.addEventListener('click', () => {
+            const textToRead = document.getElementById('article-content').innerText;
+
+            if (!isPlaying) {
+                utterance = new SpeechSynthesisUtterance(textToRead);
+                utterance.lang = 'pt-BR'; // Define o idioma da leitura
+                utterance.onstart = () => {
+                    isPlaying = true;
+                    playButton.classList.add('playing'); // Para adicionar animação ou mudança de ícone
+                };
+                utterance.onend = () => {
+                    isPlaying = false;
+                    playButton.classList.remove('playing');
+                    audioTimer.innerText = '00:00';
+                };
+
+                speechSynthesis.speak(utterance);
+            } else {
+                speechSynthesis.cancel();
+                isPlaying = false;
+                playButton.classList.remove('playing');
+                audioTimer.innerText = '00:00'; // Reseta o timer ao pausar
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+/* Estilo Básico do Botão */
+.button {
+  background-color: #007bff; /* Cor de fundo */
+  color: white; /* Cor do texto */
+  padding: 10px 20px; /* Espaçamento interno */
+  border: none; /* Sem borda */
+  border-radius: 5px; /* Cantos arredondados */
+  text-decoration: none; /* Remove sublinhado */
+  display: inline-block; /* Permite que o link se comporte como um botão */
+  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+  margin: 5px; /* Espaçamento entre botões */
+}
+
+/* Efeito de Hover para Botões */
+.button:hover {
+  background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+  transform: scale(1.05); /* Aumenta o tamanho em 5% */
+}
+
+/* Efeito de Foco para Botões */
+.button:focus {
+  outline: none; /* Remove o contorno padrão */
+  box-shadow: 0 0 5px #007bff; /* Adiciona sombra ao focar */
+}
